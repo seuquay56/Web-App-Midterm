@@ -49,3 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/notes/{id}', [NoteController::class, 'up   ate']);
     Route::delete('/notes/{id}', [NoteController::class, 'destroy']);
 });
+
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
