@@ -1,0 +1,75 @@
+info:
+  name: Update Note Endpoint
+  type: http
+  seq: 3
+
+http:
+  method: PUT
+  url: http://localhost:8000/api/notes/1
+  headers:
+    - name: Content-Type
+      value: application/json
+    - name: Authorization
+      value: Bearer YOUR_SANCTUM_TOKEN
+  body:
+    type: json
+    data: |-
+      {
+        "title": "Updated note title",
+        "content": "Updated note content"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: |-
+
+  ### `PUT /api/notes/{id}`
+  Updates an existing note belonging to the authenticated user.
+
+  **Responses**
+  - **200 OK**
+  ```json
+  {
+    "id": 1,
+    "user_id": 1,
+    "title": "Updated note title",
+    "content": "Updated note content",
+    "created_at": "2026-11-25T12:00:00.000000Z",
+    "updated_at": "2026-11-25T12:10:00.000000Z"
+  }
+  ```
+  - **401 Unauthorized**
+  ```json
+  {
+    "message": "Unauthenticated."
+  }
+  ```
+  - **404 Not Found**
+  ```json
+  {
+    "message": "No query results for model [App\\Models\\Note]."
+  }
+  ```
+  - **422 Unprocessable Entity**
+  ```json
+  {
+    "message": "The title field must not be greater than 255 characters.",
+    "errors": {
+      "title": [
+        "The title field must not be greater than 255 characters."
+      ]
+    }
+  }
+  ```​

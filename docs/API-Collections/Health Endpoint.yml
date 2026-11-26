@@ -1,0 +1,26 @@
+info:
+  name: Health Endpoint
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:8000/api/health
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: |
+  Checks API and database connectivity. No request body.
+  * **200 OK** — Service and database are up.
+  * **503 Service Unavailable** — Database is unreachable.
+
+  | Status | Response |
+  |--------|------|
+  | 200    | {"db":"ok","container":"ID"} |
+  | 503    | {"db":"down","container":"ID"} |
