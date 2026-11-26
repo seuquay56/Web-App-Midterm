@@ -1,0 +1,68 @@
+info:
+  name: Delete endpoint
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: http://localhost:8000/api/notes/1
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: |-
+  info:
+    name: Delete Note Endpoint
+    type: http
+    seq: 5
+
+  http:
+    method: DELETE
+    url: http://localhost:8000/api/notes/1
+    headers:
+      - name: Authorization
+        value: Bearer YOUR_SANCTUM_TOKEN
+    auth: inherit
+
+  runtime:
+    assertions:
+      - expression: res.status
+        operator: eq
+        value: "200"
+
+  settings:
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5
+    forwardAuthorizationHeader: true
+
+  docs: |-
+
+    ### `DELETE /api/notes/{id}`
+    Deletes an existing note belonging to the authenticated user.
+
+    **Responses**
+    - **200 OK**
+    ```json
+    {
+      "message": "Note deleted successfully."
+    }
+    ```
+    - **401 Unauthorized**
+    ```json
+    {
+      "message": "Unauthenticated."
+    }
+    ```
+    - **404 Not Found**
+    ```json
+    {
+      "message": "No query results for model [App\\Models\\Note]."
+    }
+    ```

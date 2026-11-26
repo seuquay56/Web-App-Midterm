@@ -59,4 +59,19 @@ class NoteController extends Controller
 
         return response()->json($note, 201);
     }
+
+    public function destroy(Request $request, $id)
+        {
+            // Tìm note theo id và user đang đăng nhập (không tồn tại hoặc không phải của user sẽ trả về 404)
+            $note = Note::where('id', $id)
+                ->where('user_id', $request->user()->id)
+                ->firstOrFail();
+
+            $note->delete();
+
+            return response()->json([
+                'message' => 'Note deleted successfully.'
+            ], 200);
+        }
 }
+
