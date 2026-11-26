@@ -1,0 +1,69 @@
+info:
+  name: Logout endpoint
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8000/api/logout
+  headers:
+    - name: Accept
+      value: application/json
+    - name: Authorization
+      value: Bearer 2|4kCim2xFgQwtkxyiTGgKPcWOwShH4p5ULzDRWpZB4d960a77
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: |-
+  info:
+    name: Logout Endpoint
+    type: http
+    seq: 3
+
+  http:
+    method: POST
+    url: http://localhost:8000/api/logout
+    headers:
+      - name: Accept
+        value: application/json
+      - name: Authorization
+        value: Bearer YOUR_SANCTUM_TOKEN
+    auth: inherit
+
+  runtime:
+    assertions:
+      - expression: res.status
+        operator: eq
+        value: "200"
+
+  settings:
+    encodeUrl: true
+    timeout: 0
+    followRedirects: true
+    maxRedirects: 5
+    forwardAuthorizationHeader: true
+
+  docs: |-
+
+    ### `POST /api/logout`
+    Revokes the current user's Sanctum access token.
+
+    **Resposnses**
+    - **200 OK**
+    ```json
+    {
+      "message": "Logged out successfully."
+    }
+    ```
+    - **401 Unauthorized**
+    ```json
+    {
+      "message": "Unauthenticated."
+    }
+    ```

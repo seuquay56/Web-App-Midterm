@@ -1,0 +1,65 @@
+info:
+  name: Register Endpoint
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8000/api/register
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Testing!!!",
+        "email": "testing@account.meeeee",
+        "password": "Test@password122",
+        "password_confirmation": "Test@password122"
+      }
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+    - expression: res.body.user.id
+      operator: isNumber
+    - expression: res.body.user.email
+      operator: isString
+    - expression: res.body.token
+      operator: isNotEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: |-
+  
+  ### `POST /api/register`
+  Creates a new user account and returns a Sanctum token.
+
+  **Request Body**
+  * `name` *(string, required, max 255)*
+  * `email` *(string, required, max 255, unique)*
+  * `password` *(string, required, min 8)*
+  * `password_confirmation` *(string, required, must match `password`)*
+
+  **Responses**
+  * **201 Created**
+  ```json
+  {
+    "user": {
+      "id": 1,
+      "name": "Jane Doe",
+      "email": "jane@example.com"
+    },
+    "token": "1|abc123..."
+  }
+  ```
+  * **422 Unprocessable Entity** — Validation failed.
