@@ -37,30 +37,11 @@ Route::get('/notes', [NoteController::class, 'index'])->middleware('auth:sanctum
 // Update endpoint
 Route::put('/notes/{id}', [NoteController::class, 'update'])->middleware('auth:sanctum');
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/notes', [NoteController::class, 'index']);
-    Route::post('/notes', [NoteController::class, 'store']);
-    Route::put('/notes/{id}', [NoteController::class, 'update']);
-});
-
 // Delete endpoint
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/notes', [NoteController::class, 'index']);
-    Route::post('/notes', [NoteController::class, 'store']);
-    Route::put('/notes/{id}', [NoteController::class, 'up   ate']);
-    Route::delete('/notes/{id}', [NoteController::class, 'destroy']);
-});
+Route::delete('/notes/{id}', [NoteController::class, 'destroy'])->middleware('auth:sanctum');
 
 // Login endpoint
-Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-
 // Logout endpoint
-Route::middleware('auth:sanctum')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::get('/notes', [NoteController::class, 'index']);
-    Route::post('/notes', [NoteController::class, 'store']);
-    Route::put('/notes/{id}', [NoteController::class, 'update']);
-    Route::delete('/notes/{id}', [NoteController::class, 'destroy']);
-});
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
