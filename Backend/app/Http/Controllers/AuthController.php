@@ -8,6 +8,14 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    public function show_register() {
+        return view('authentications.register');
+    }
+
+    public function show_login() {
+        return view('authentications.login');
+    }
+
     public function register(RegisterRequest $request){
         // validated() only the fields that have rules,
         // The confirmation field isn't included

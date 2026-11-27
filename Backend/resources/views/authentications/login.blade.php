@@ -11,9 +11,9 @@
 
 @section('content')
 
-@if (auth()->check()) 
+{{-- @if (auth()->check()) 
     route('home')
-@endif
+@endif --}}
 
 <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center px-3 py-5">
 
@@ -129,7 +129,8 @@
                     {{-- Forgot Password --}}
                     <div class="text-end mb-4">
 
-                        <a href="{{ route('password.request') }}"
+                        {{-- href="{{ route('password.request') }}" --}}
+                        <a 
                            class="text-link text-secondary small text-decoration-none">
                             Forgot password?
                         </a>
