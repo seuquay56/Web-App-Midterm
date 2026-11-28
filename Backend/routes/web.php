@@ -8,6 +8,12 @@ use App\Http\Controllers\AuthController;
 //     return view('welcome');
 // });
 
+// Hien thi giao dien home
+Route::redirect('/', '/home');
+Route::get('/home', function() {
+    return view('home');
+})->middleware('auth:sanctum');
+
 // Hien thi giao dien register
 Route::get('/register', [AuthController::class, 'show_register'])->name('register');
 

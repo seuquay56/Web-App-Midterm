@@ -126,17 +126,6 @@
 
                     </div>
 
-                    {{-- Forgot Password --}}
-                    <div class="text-end mb-4">
-
-                        {{-- href="{{ route('password.request') }}" --}}
-                        <a 
-                           class="text-link text-secondary small text-decoration-none">
-                            Forgot password?
-                        </a>
-
-                    </div>
-
                     {{-- Submit --}}
                     <button type="submit"
                             class="btn btn-gc-primary w-100 rounded-3 py-2 fw-bold">
